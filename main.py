@@ -29,7 +29,7 @@ def translate_file(
 
 if "__main__" == __name__:
 
-    #achsaf was here ya bish
+    #achsaf who? hahahaha LOLLLLLLLLLLLLLLLL
 
     # Parses the input path and calls translate_file on each input file.
     # This opens both the input and the output files!
