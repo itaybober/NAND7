@@ -66,6 +66,8 @@ class Parser:
         print(self.input_lines)
         for line in self.input_lines:
             print(self.command_type())
+            self.curindex += 1
+        self.curindex = 0
 
     def has_more_commands(self) -> bool:
         """Are there more commands in the input?
@@ -133,7 +135,7 @@ class Parser:
         if self.command_type() == "C_ARITHMETIC":
             return self.input_lines[self.curindex]
         else:
-            return self.input_lines[self.curindex].split[1]
+            return self.input_lines[self.curindex].split()[1]
 
     def arg2(self) -> int:
         """
@@ -142,4 +144,4 @@ class Parser:
             called only if the current command is "C_PUSH", "C_POP", 
             "C_FUNCTION" or "C_CALL".
         """
-        return self.input_lines[self.curindex].split[2]
+        return self.input_lines[self.curindex].split()[2]
