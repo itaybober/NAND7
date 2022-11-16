@@ -31,7 +31,7 @@ def translate_file(
 
 if "__main__" == __name__:
 
-    with open("output.asm", 'w') as output_file:
+    with open("StackArithmetic/SimpleAdd/SimpleAdd.asm", 'w') as output_file:
         with open("StackArithmetic/SimpleAdd/SimpleAdd.vm", 'r') as input_file:
                 translate_file(input_file, output_file)
 

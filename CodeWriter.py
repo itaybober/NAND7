@@ -71,16 +71,30 @@ class CodeWriter:
         # variables to the RAM, starting at address 16.
         output = "// " + command + " " + segment + " " + str(index) + "\n"
         if command == "push":
-        #     find val at seg[index]
-
             output += "@" + str(index) + "\nD=A\n"
             if segment == "static":
                 output += self.dict[segment]
             else:
                 output += "@" + self.dict[segment] + "\nA=M\n"
             output += "A=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n"
-        # else:
+        else:
+            output += "@SP\nM=M-1\n@"
+            if segment == "static":
+                output += self.dict[segment]
+            else:
+                output += self.dict[segment] + "\nA=M\n"
+            output += "A=A+D\n" \
+                      "D=A\n" \
+                      "@TAR\n" \
+                      "M=D\n" \
+                      "@SP\n" \
+                      "M=D\n" \
+                      "@TAR\n" \
+                      "A=M\n" \
+                      "A=D\n"
 
+        #     get top of stack
+        #  put it relevant segmant
         self.output_file.write(output)
 
 
