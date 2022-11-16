@@ -25,11 +25,13 @@ def translate_file(
     # parser = Parser(input_file)
     # code_writer = CodeWriter(output_file)
     parser = Parser(input_file)
+    code_writer = CodeWriter(output_file)
+    code_writer.write_push_pop("push","local",6)
     parser.print()
 
 if "__main__" == __name__:
 
-    with open("StackArithmetic/SimpleAdd/SimpleAdd.asm", 'w') as output_file:
+    with open("output.asm", 'w') as output_file:
         with open("StackArithmetic/SimpleAdd/SimpleAdd.vm", 'r') as input_file:
                 translate_file(input_file, output_file)
 

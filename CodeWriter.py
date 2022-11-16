@@ -21,6 +21,7 @@ class CodeWriter:
         # Note that you can write to output_stream like so:
         # output_stream.write("Hello world! \n")
         self.output_file = output_stream
+        self.dict = {"static": "16", "local" : "LCL", "argument": "ARG", "this": "THIS", "that":"THAT"}
 
     def set_file_name(self, filename: str) -> None:
         """Informs the code writer that the translation of a new VM file is 
@@ -68,7 +69,19 @@ class CodeWriter:
         # be translated to the assembly symbol "Xxx.i". In the subsequent
         # assembly process, the Hack assembler will allocate these symbolic
         # variables to the RAM, starting at address 16.
-        pass
+        output = "// " + command + " " + segment + " " + str(index) + "\n"
+        if command == "push":
+        #     find val at seg[index]
+            output += "@" + str(index) + "\nD=A\n"
+            if segment == "static":
+                output += self.dict[segment]
+            else:
+                output += "@" + self.dict[segment] + "\nA=M\n"
+            output += "A=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n"
+        # else:
+
+        self.output_file.write(output)
+
 
     def write_label(self, label: str) -> None:
         """Writes assembly code that affects the label command. 
