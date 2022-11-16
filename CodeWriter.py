@@ -72,6 +72,7 @@ class CodeWriter:
         output = "// " + command + " " + segment + " " + str(index) + "\n"
         if command == "push":
         #     find val at seg[index]
+
             output += "@" + str(index) + "\nD=A\n"
             if segment == "static":
                 output += self.dict[segment]
