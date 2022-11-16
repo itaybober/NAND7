@@ -144,4 +144,4 @@ class Parser:
             called only if the current command is "C_PUSH", "C_POP", 
             "C_FUNCTION" or "C_CALL".
         """
-        return self.input_lines[self.curindex].split()[2]
+        return int(self.input_lines[self.curindex].split()[2])
