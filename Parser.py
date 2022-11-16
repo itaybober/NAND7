@@ -7,6 +7,7 @@ Unported [License](https://creativecommons.org/licenses/by-nc-sa/3.0/).
 """
 import typing
 
+c_arithmetic = ['add', 'sub', 'eq', 'neg', 'gt', 'lt', 'and', 'or', 'not']
 
 class Parser:
     """
@@ -83,8 +84,25 @@ class Parser:
             "C_PUSH", "C_POP", "C_LABEL", "C_GOTO", "C_IF", "C_FUNCTION",
             "C_RETURN", "C_CALL".
         """
-        # Your code goes here!
-        pass
+        if self.input_lines[self.curindex].split[0] in c_arithmetic:
+            return "C_ARITHMETIC"
+        elif self.input_lines[self.curindex].split[0] == "push":
+            return "C_PUSH"
+        elif self.input_lines[self.curindex].split[0] == "pop":
+            return "C_POP"
+        elif self.input_lines[self.curindex].split[0] == "label":
+            return "C_LABEL"
+        elif self.input_lines[self.curindex].split[0] == "goto":
+            return "C_GOTO"
+        elif self.input_lines[self.curindex].split[0] == "if-goto":
+            return "C_IF"
+        elif self.input_lines[self.curindex].split[0] == "function":
+            return "C_FUNCTION"
+        elif self.input_lines[self.curindex].split[0] == "return":
+            return "C_RETURN"
+        else:
+            return "C_CALL"
+
 
     def arg1(self) -> str:
         """
@@ -93,8 +111,10 @@ class Parser:
             "C_ARITHMETIC", the command itself (add, sub, etc.) is returned. 
             Should not be called if the current command is "C_RETURN".
         """
-        # Your code goes here!
-        pass
+        if self.command_type() == "C_ARITHMETIC":
+            return self.input_lines[self.curindex]
+        else:
+            return self.input_lines[self.curindex].split[1]
 
     def arg2(self) -> int:
         """
@@ -103,5 +123,4 @@ class Parser:
             called only if the current command is "C_PUSH", "C_POP", 
             "C_FUNCTION" or "C_CALL".
         """
-        # Your code goes here!
-        pass
+        return self.input_lines[self.curindex].split[2]
