@@ -54,6 +54,12 @@ class CodeWriter:
         """
         if command == "add":
             self.output_file.write(self.write_add())
+        elif command == "sub":
+            self.output_file.write(self.write_sub())
+        elif command == "neg":
+            self.output_file.write(self.write_neg())
+
+
 
     def write_push_pop(self, command: str, segment: str, index: int) -> None:
         """Writes assembly code that is the translation of the given 
@@ -78,7 +84,13 @@ class CodeWriter:
                 output += self.dict[segment]
             else:
                 output += "@" + self.dict[segment] + "\nA=M\n"
-            output += "A=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n"
+            output += "A=A+D\n" \
+                      "D=M\n" \
+                      "@SP\n" \
+                      "A=M\n" \
+                      "M=D\n" \
+                      "@SP\n" \
+                      "M=M+1\n"
         # else:
 
         self.output_file.write(output)
@@ -194,3 +206,35 @@ class CodeWriter:
                "A=A-1\n" \
                "D=D+M\n" \
                "M=D\n"
+
+    def write_sub(self):
+        return "// sub\n" \
+               "@SP\n" \
+               "M=M-1\n" \
+               "A=M\n" \
+               "D=M\n" \
+               "A=A-1\n" \
+               "D=M-D\n" \
+               "M=D\n"
+
+    def write_neg(self):
+        return "//neq\n" \
+               "@SP\n" \
+               "A=M-1\n" \
+               "M=-M\n"
+
+    def write_eq(self):
+        return "//neq\n" \
+                + self.write_sub() \
+               + "\n" + \
+                  "@EQUAL\n" \
+                  "D;JEQ\n" \
+                  "A=A-1\n" \
+                  "M=0\n" \
+                  "@EQEND\n" \
+                  "0;JMP\n" \
+                  "(EQUAL)\n" \
+                  "A=A-1\n" \
+                  "M=-1\n" \
+                  "(EQEND)\n"
+
