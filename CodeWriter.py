@@ -70,13 +70,22 @@ class CodeWriter:
         # assembly process, the Hack assembler will allocate these symbolic
         # variables to the RAM, starting at address 16.
         output = "// " + command + " " + segment + " " + str(index) + "\n"
-        if command == "push":
-            output += "@" + str(index) + "\nD=A\n"
-            if segment == "static":
-                output += self.dict[segment]
+        if command == "C_PUSH":
+            if segment == "constant":
+                output += "@" + str(index) + "\nD=A\n"
             else:
-                output += "@" + self.dict[segment] + "\nA=M\n"
-            output += "A=A+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n"
+                output += "@" + str(index) + "\nD=A\n"
+                if segment == "static":
+                    output += self.dict[segment]
+                else:
+                    output += "@" + self.dict[segment] + "\nA=M\n"
+                output += "A=A+D\n"
+            output += "D=M\n" \
+                      "@SP\n" \
+                      "A=M\n" \
+                      "M=D\n" \
+                      "@SP\n" \
+                      "M=M+1\n"
         else:
             output += "@SP\nM=M-1\n@"
             if segment == "static":
