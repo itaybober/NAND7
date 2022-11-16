@@ -58,16 +58,14 @@ class Parser:
         # input_lines = input_file.read().splitlines()
         self.input_lines = input_file.read().splitlines()
 
-
         self.input_lines = self.clean_code()
-
         self.curindex = 0
-
-
 
 
     def print(self):
         print(self.input_lines)
+        for line in self.input_lines:
+            print(self.command_type())
 
     def has_more_commands(self) -> bool:
         """Are there more commands in the input?
@@ -105,21 +103,21 @@ class Parser:
             "C_PUSH", "C_POP", "C_LABEL", "C_GOTO", "C_IF", "C_FUNCTION",
             "C_RETURN", "C_CALL".
         """
-        if self.input_lines[self.curindex].split[0] in c_arithmetic:
+        if self.input_lines[self.curindex].split()[0] in c_arithmetic:
             return "C_ARITHMETIC"
-        elif self.input_lines[self.curindex].split[0] == "push":
+        elif self.input_lines[self.curindex].split()[0] == "push":
             return "C_PUSH"
-        elif self.input_lines[self.curindex].split[0] == "pop":
+        elif self.input_lines[self.curindex].split()[0] == "pop":
             return "C_POP"
-        elif self.input_lines[self.curindex].split[0] == "label":
+        elif self.input_lines[self.curindex].split()[0] == "label":
             return "C_LABEL"
-        elif self.input_lines[self.curindex].split[0] == "goto":
+        elif self.input_lines[self.curindex].split()[0] == "goto":
             return "C_GOTO"
-        elif self.input_lines[self.curindex].split[0] == "if-goto":
+        elif self.input_lines[self.curindex].split()[0] == "if-goto":
             return "C_IF"
-        elif self.input_lines[self.curindex].split[0] == "function":
+        elif self.input_lines[self.curindex].split()[0] == "function":
             return "C_FUNCTION"
-        elif self.input_lines[self.curindex].split[0] == "return":
+        elif self.input_lines[self.curindex].split()[0] == "return":
             return "C_RETURN"
         else:
             return "C_CALL"
