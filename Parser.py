@@ -56,7 +56,18 @@ class Parser:
         # Your code goes here!
         # A good place to start is to read all the lines of the input:
         # input_lines = input_file.read().splitlines()
-        pass
+        self.input_lines = input_file.read().splitlines()
+
+
+        self.input_lines = self.clean_code()
+
+        self.curindex = 0
+
+
+
+
+    def print(self):
+        print(self.input_lines)
 
     def has_more_commands(self) -> bool:
         """Are there more commands in the input?
@@ -64,8 +75,8 @@ class Parser:
         Returns:
             bool: True if there are more commands, False otherwise.
         """
-        # Your code goes here!
-        pass
+        return self.curindex <= len(self.input_lines) - 1
+
 
     def advance(self) -> None:
         """Reads the next command from the input and makes it the current 
@@ -73,7 +84,17 @@ class Parser:
         there is no current command.
         """
         # Your code goes here!
-        pass
+        self.curindex += 1
+
+    def clean_code(self):
+        clean_lines = []
+        for line in self.input_lines:
+            comment_index = line.find("//")
+            if(comment_index != -1):
+                line = line[:comment_index]
+            if line != "":
+                clean_lines.append(line)
+        return clean_lines
 
     def command_type(self) -> str:
         """
