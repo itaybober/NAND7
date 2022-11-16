@@ -51,8 +51,8 @@ class CodeWriter:
         Args:
             command (str): an arithmetic command.
         """
-        # Your code goes here!
-        pass
+        if command == "add":
+            self.output_file.write(self.write_add())
 
     def write_push_pop(self, command: str, segment: str, index: int) -> None:
         """Writes assembly code that is the translation of the given 
@@ -84,7 +84,7 @@ class CodeWriter:
         # This is irrelevant for project 7,
         # you will implement this in project 8!
         pass
-    
+
     def write_goto(self, label: str) -> None:
         """Writes assembly code that affects the goto command.
 
@@ -94,7 +94,7 @@ class CodeWriter:
         # This is irrelevant for project 7,
         # you will implement this in project 8!
         pass
-    
+
     def write_if(self, label: str) -> None:
         """Writes assembly code that affects the if-goto command. 
 
@@ -104,7 +104,7 @@ class CodeWriter:
         # This is irrelevant for project 7,
         # you will implement this in project 8!
         pass
-    
+
     def write_function(self, function_name: str, n_vars: int) -> None:
         """Writes assembly code that affects the function command. 
         The handling of each "function Xxx.foo" command within the file Xxx.vm
@@ -124,7 +124,7 @@ class CodeWriter:
         # repeat n_vars times:  // n_vars = number of local variables
         #   push constant 0     // initializes the local variables to 0
         pass
-    
+
     def write_call(self, function_name: str, n_args: int) -> None:
         """Writes assembly code that affects the call command. 
         Let "Xxx.foo" be a function within the file Xxx.vm.
@@ -154,7 +154,7 @@ class CodeWriter:
         # goto function_name    // transfers control to the callee
         # (return_address)      // injects the return address label into the code
         pass
-    
+
     def write_return(self) -> None:
         """Writes assembly code that affects the return command."""
         # This is irrelevant for project 7,
@@ -170,3 +170,13 @@ class CodeWriter:
         # LCL = *(frame-4)              // restores LCL for the caller
         # goto return_address           // go to the return address
         pass
+
+    def write_add(self):
+        return "// add\n" \
+               "@SP\n" \
+               "M=M-1\n" \
+               "A=M\n" \
+               "D=M\n" \
+               "A=A-1\n" \
+               "D=D+M\n" \
+               "M=D\n"
