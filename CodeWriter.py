@@ -291,7 +291,8 @@ class CodeWriter:
 
 
     def write_or(self):
-        return self.write_add() + \
+        return "//or\n" +\
+               self.write_add() + \
                 "@0\n" \
                 "D=A\n" \
                 "@SP\n" \
@@ -302,7 +303,8 @@ class CodeWriter:
                 self.write_lt()
 
     def write_not(self):
-        return "@SP\n" \
+        return "//not\n" \
+               "@SP\n" \
                "A=M-1\n" \
                "M=!M\n" \
 
