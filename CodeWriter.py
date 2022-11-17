@@ -82,40 +82,10 @@ class CodeWriter:
         # assembly process, the Hack assembler will allocate these symbolic
         # variables to the RAM, starting at address 16.
         output = "// " + command + " " + segment + " " + str(index) + "\n"
-        if command == "push":
-        #     find val at seg[index]
-
-            output += "@" + str(index) + "\nD=A\n"
-            if segment == "static":
-                output += self.dict[segment]
-            else:
-                output += "@" + self.dict[segment] + "\nA=M\n"
-            output += "A=A+D\n" \
-                      "D=M\n" \
-                      "@SP\n" \
-                      "A=M\n" \
-                      "M=D\n" \
-                      "@SP\n" \
-                      "M=M+1\n"
+        if command == "C_PUSH":
+            output += self.push_command(segment, index)
         else:
-            output += "@SP\nM=M-1\n@"
-            if segment == "static":
-                output += self.dict[segment]
-            else:
-                output += self.dict[segment] + "\nA=M\n"
-            output += "A=A+D\n" \
-                      "D=A\n" \
-                      "@TAR\n" \
-                      "M=D\n" \
-                      "@SP\n" \
-                      "M=D\n" \
-                      "@TAR\n" \
-                      "A=M\n" \
-                      "A=D\n"
-
-
-            #     get top of stack
-            #  put it relevant segmant
+            output += self.pop_command(segment, index)
         self.output_file.write(output)
 
 
@@ -293,4 +263,39 @@ class CodeWriter:
                "(LESSTEND)\n"
 
 
+    def push_command(self, segment, index):
+        output = "@" + str(index) + "\nD=A\n"
 
+        if segment == "static":
+            output += self.dict[segment]
+        elif segment in self.dict:
+            output += "@" + self.dict[segment] + "\nA=M\n"
+
+
+        output += "A=A+D\n" \
+                  "D=M\n" \
+                  "@SP\n" \
+                  "A=M\n" \
+                  "M=D\n" \
+                  "@SP\n" \
+                  "M=M+1\n"
+        return output
+
+    def pop_command(self, segment, index):
+        output = "@SP\nM=M-1\n@"
+        if segment == "constant":
+            return output
+        if segment == "static":
+            output += self.dict[segment]
+        else:
+            output += self.dict[segment] + "\nA=M\n"
+        output += "A=A+D\n" \
+                  "D=A\n" \
+                  "@TAR\n" \
+                  "M=D\n" \
+                  "@SP\n" \
+                  "M=D\n" \
+                  "@TAR\n" \
+                  "A=M\n" \
+                  "A=D\n"
+        return output
