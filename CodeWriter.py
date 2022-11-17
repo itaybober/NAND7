@@ -267,13 +267,22 @@ class CodeWriter:
     def write_and(self):
         pass
 
+    def write_or(self):
+        return self.write_add() + \
+                "@0\n" \
+                "D=A\n" \
+                "@SP\n" \
+                "A=M\n" \
+                "M=D\n" \
+                "@SP\n" \
+                "M=M+1\n" + \
+                self.write_lt()
+
     def write_not(self):
         return "@SP\n" \
-               "M=M-1\n" \
-               "A=M\n" \
+               "A=M-1\n" \
                "M=!M\n" \
-               "@SP\n" \
-               "M=M+1\n"
+
 
 
     def push_command(self, segment, index):
