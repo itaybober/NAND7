@@ -62,6 +62,8 @@ class CodeWriter:
             self.output_file.write(self.write_gt())
         elif command == "lt":
             self.output_file.write(self.write_lt())
+        elif command == "and":
+            self.output_file.write(self.write_and())
 
 
 
@@ -261,6 +263,9 @@ class CodeWriter:
                "A=A-1\n" \
                "M=-1\n" \
                "(LESSTEND)\n"
+
+    def write_and(self):
+
 
 
     def push_command(self, segment, index):
