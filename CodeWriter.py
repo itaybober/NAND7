@@ -265,6 +265,23 @@ class CodeWriter:
                "(LESSTEND)\n"
 
     def write_and(self):
+        return "//and\n" \
+               + self.write_add() \
+               + "\n" + \
+                "D=D+1\n" \
+                "D=D+1\n" \
+               "@ANDSUCCESS\n" \
+               "D;JEQ\n" \
+               "A=A-1\n" \
+               "M=0\n" \
+               "@ANDEND\n" \
+               "0;JMP\n" \
+               "(ANDSUCCESS)\n" \
+               "A=A-1\n" \
+               "M=-1\n" \
+               "(ANDEND)\n"
+
+
 
 
 
