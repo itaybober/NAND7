@@ -11,7 +11,7 @@ c_arithmetic = ['add', 'sub', 'eq', 'neg', 'gt', 'lt', 'and', 'or', 'not']
 
 class Parser:
     """
-    # Parser
+    # Parser\
     
     Handles the parsing of a single .vm file, and encapsulates access to the
     input code. It reads VM commands, parses them, and provides convenient 
