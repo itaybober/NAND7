@@ -227,7 +227,7 @@ class CodeWriter:
                "M=-M\n"
 
     def write_eq(self):
-        return "//neq\n" \
+        return "//eq\n" \
                 + self.write_sub() \
                + "\n" + \
                   "@EQUAL\n" \
