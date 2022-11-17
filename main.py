@@ -28,6 +28,17 @@ def translate_file(
     code_writer = CodeWriter(output_file)
     code_writer.write_push_pop("push","local",6)
     parser.print()
+    while (parser.has_more_commands()):
+        command_type = parser.command_type()
+        if command_type in ["C_POP", "C_PUSH"]:
+            segment = parser.arg1()
+            index = parser.arg2()
+            code_writer.write_push_pop(command_type, segment, index)
+        elif command_type in ["C_ARITHMETIC"]:
+            command = parser.arg1()
+            code_writer.write_arithmetic(command)
+        parser.advance()
+    # parser.print()
 
 if "__main__" == __name__:
 

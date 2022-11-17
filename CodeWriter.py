@@ -58,6 +58,9 @@ class CodeWriter:
             self.output_file.write(self.write_sub())
         elif command == "neg":
             self.output_file.write(self.write_neg())
+        elif command == "gt":
+            self.output_file.write(self.write_gt())
+
 
 
 
@@ -91,8 +94,24 @@ class CodeWriter:
                       "M=D\n" \
                       "@SP\n" \
                       "M=M+1\n"
-        # else:
+        else:
+            output += "@SP\nM=M-1\n@"
+            if segment == "static":
+                output += self.dict[segment]
+            else:
+                output += self.dict[segment] + "\nA=M\n"
+            output += "A=A+D\n" \
+                      "D=A\n" \
+                      "@TAR\n" \
+                      "M=D\n" \
+                      "@SP\n" \
+                      "M=D\n" \
+                      "@TAR\n" \
+                      "A=M\n" \
+                      "A=D\n"
 
+            #     get top of stack
+            #  put it relevant segmant
         self.output_file.write(output)
 
 
@@ -253,4 +272,11 @@ class CodeWriter:
                "A=A-1\n" \
                "M=-1\n" \
                "(GREATEREND)\n"
+
+    def write_lt(self):
+        return "//lt\n" \
+               + self.write_sub() \
+            + "\n" + \
+            ""
+
 
