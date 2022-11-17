@@ -282,17 +282,30 @@ class CodeWriter:
                "(ANDEND)\n"
 
 
+    def write_or(self):
+        return self.write_add() + \
+                "@0\n" \
+                "D=A\n" \
+                "@SP\n" \
+                "A=M\n" \
+                "M=D\n" \
+                "@SP\n" \
+                "M=M+1\n" + \
+                self.write_lt()
+
+    def write_not(self):
+        return "@SP\n" \
+               "A=M-1\n" \
+               "M=!M\n" \
 
 
 
     def push_command(self, segment, index):
         output = "@" + str(index) + "\nD=A\n"
-
         if segment == "static":
             output += self.dict[segment]
         elif segment in self.dict:
             output += "@" + self.dict[segment] + "\nA=M\n"
-
 
         output += "A=A+D\n" \
                   "D=M\n" \
