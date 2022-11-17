@@ -110,6 +110,7 @@ class CodeWriter:
                       "A=M\n" \
                       "A=D\n"
 
+
             #     get top of stack
             #  put it relevant segmant
         self.output_file.write(output)

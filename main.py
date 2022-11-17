@@ -40,6 +40,7 @@ def translate_file(
         parser.advance()
     # parser.print()
 
+
 if "__main__" == __name__:
 
     with open("output.asm", 'w') as output_file:
