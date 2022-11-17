@@ -21,7 +21,8 @@ class CodeWriter:
         # Note that you can write to output_stream like so:
         # output_stream.write("Hello world! \n")
         self.output_file = output_stream
-        self.dict = {"static": "16", "local" : "LCL", "argument": "ARG", "this": "THIS", "that":"THAT"}
+        self.dict = {"static": "16", "local" : "LCL", "argument": "ARG", "this": "THIS", "that" : "THAT",
+                     "temp": "TEMP", "pointer" : "SP", "heap": "2048"}
 
     def set_file_name(self, filename: str) -> None:
         """Informs the code writer that the translation of a new VM file is 
@@ -312,7 +313,7 @@ class CodeWriter:
 
     def push_command(self, segment, index):
         output = "@" + str(index) + "\nD=A\n"
-        if segment == "static":
+        if segment in ["static", "heap"]:
             output += self.dict[segment]
         elif segment in self.dict:
             output += "@" + self.dict[segment] + "\nA=M\n"
@@ -327,13 +328,17 @@ class CodeWriter:
         return output
 
     def pop_command(self, segment, index):
-        output = "@SP\nM=M-1\n@"
+        output = "@SP\n" \
+                 "M=M-1\n" \
+                 "@" + str(index) + "D=A\n@"
         if segment == "constant":
-            return output
-        if segment == "static":
+            return output + str(index)
+        if segment in ["static", "heap"]:
             output += self.dict[segment]
         else:
-            output += self.dict[segment] + "\nA=M\n"
+            output += self.dict[segment] + \
+                      "\nA=M\n"
+
         output += "A=A+D\n" \
                   "D=A\n" \
                   "@TAR\n" \
