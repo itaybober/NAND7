@@ -60,6 +60,9 @@ class CodeWriter:
             self.output_file.write(self.write_neg())
         elif command == "gt":
             self.output_file.write(self.write_gt())
+        elif command == "lt":
+            self.output_file.write(self.write_lt())
+
 
 
 
@@ -278,6 +281,15 @@ class CodeWriter:
         return "//lt\n" \
                + self.write_sub() \
             + "\n" + \
-            ""
+               "@LESSTHAN\n" \
+               "D;JGT\n" \
+               "A=A-1\n" \
+               "M=0\n" \
+               "@LESSTEND\n" \
+               "0;JMP\n" \
+               "(LESSTHAN)\n" \
+               "A=A-1\n" \
+               "M=-1\n" \
+               "(LESSTEND)\n"
 
 
