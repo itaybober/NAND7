@@ -252,10 +252,13 @@ class CodeWriter:
 
     def push_command(self, segment, index):
         output = "@" + str(index) + "\nD=A\n"
+
         if segment == "static":
             output += self.dict[segment]
-        else:
+        elif segment in self.dict:
             output += "@" + self.dict[segment] + "\nA=M\n"
+
+
         output += "A=A+D\n" \
                   "D=M\n" \
                   "@SP\n" \
@@ -267,6 +270,8 @@ class CodeWriter:
 
     def pop_command(self, segment, index):
         output = "@SP\nM=M-1\n@"
+        if segment == "constant":
+            return output
         if segment == "static":
             output += self.dict[segment]
         else:
