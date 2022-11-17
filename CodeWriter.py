@@ -58,12 +58,19 @@ class CodeWriter:
             self.output_file.write(self.write_sub())
         elif command == "neg":
             self.output_file.write(self.write_neg())
+        elif command == "eq":
+            self.output_file.write(self.write_eq())
         elif command == "gt":
             self.output_file.write(self.write_gt())
         elif command == "lt":
             self.output_file.write(self.write_lt())
         elif command == "and":
             self.output_file.write(self.write_and())
+        elif command == "or":
+            self.output_file.write(self.write_or())
+        elif command == "not":
+            self.output_file.write(self.write_not())
+
 
 
 
