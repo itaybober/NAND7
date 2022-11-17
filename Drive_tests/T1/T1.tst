@@ -4,7 +4,7 @@
 // File name: projects/07/StackArithmetic/StackTest/StackTest.tst.
 // Version: beta 1.4.
 
-load T1.asm,
+load T1.vm,
 output-file T1.out,
 compare-to T1.cmp,
 output-list RAM[0]%D2.6.2 RAM[256]%D2.6.2 RAM[257]%D2.6.2 
@@ -12,8 +12,8 @@ output-list RAM[0]%D2.6.2 RAM[256]%D2.6.2 RAM[257]%D2.6.2
 
 set RAM[0] 256,
 
-repeat 10000 {
-  ticktock;
+repeat 19 {
+  vmstep;
 }
 
 output;

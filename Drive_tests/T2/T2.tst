@@ -4,7 +4,7 @@
 // File name: projects/07/MemoryAccess/StaticTest/StaticTest.tst.
 // Version: beta 1.4
 
-load T2.asm,
+load T2.vm,
 output-file T2.out,
 compare-to T2.cmp,
 output-list RAM[256]%D1.6.1  RAM[3]%D1.6.1 RAM[4]%D1.6.1 
@@ -23,8 +23,8 @@ set RAM[11] 100,
 set RAM[12] 36,
 
 
-repeat 10000 {
-  ticktock;
+repeat 41 {
+  vmstep;
 }
 
 output;
