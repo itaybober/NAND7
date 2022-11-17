@@ -239,3 +239,18 @@ class CodeWriter:
                   "M=-1\n" \
                   "(EQEND)\n"
 
+    def write_gt(self):
+        return "//gt\n" \
+               + self.write_sub() \
+            + "\n" + \
+               "@GREATER\n" \
+               "D;JLT\n" \
+               "A=A-1\n" \
+               "M=0\n" \
+               "@GREATEREND\n" \
+               "0;JMP\n" \
+               "(GREATER)\n" \
+               "A=A-1\n" \
+               "M=-1\n" \
+               "(GREATEREND)\n"
+
