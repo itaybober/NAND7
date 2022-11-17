@@ -265,18 +265,23 @@ class CodeWriter:
                "(LESSTEND)\n"
 
     def write_and(self):
+        pass
 
+    def write_not(self):
+        return "@SP\n" \
+               "M=M-1\n" \
+               "A=M\n" \
+               "M=!M\n" \
+               "@SP\n" \
+               "M=M+1\n"
 
 
     def push_command(self, segment, index):
         output = "@" + str(index) + "\nD=A\n"
-
         if segment == "static":
             output += self.dict[segment]
         elif segment in self.dict:
             output += "@" + self.dict[segment] + "\nA=M\n"
-
-
         output += "A=A+D\n" \
                   "D=M\n" \
                   "@SP\n" \
