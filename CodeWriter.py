@@ -91,7 +91,7 @@ class CodeWriter:
         # be translated to the assembly symbol "Xxx.i". In the subsequent
         # assembly process, the Hack assembler will allocate these symbolic
         # variables to the RAM, starting at address 16.
-        output = "// " + command + " " + segment + " " + str(index) + "\n"
+        output = "\n// " + command + " " + segment + " " + str(index) + "\n"
         if command == "C_PUSH":
             output += self.push_command(segment, index)
         else:
@@ -201,34 +201,34 @@ class CodeWriter:
         pass
 
     def write_add(self):
-        return "// add\n" \
+        return "\n// add\n" \
                "@SP\n" \
                "M=M-1\n" \
                "A=M\n" \
                "D=M\n" \
                "A=A-1\n" \
                "D=D+M\n" \
-               "M=D\n"
+               "M=D"
     # THIS IS A TEST
 
     def write_sub(self):
-        return "// sub\n" \
+        return "\n// sub\n" \
                "@SP\n" \
                "M=M-1\n" \
                "A=M\n" \
                "D=M\n" \
                "A=A-1\n" \
                "D=M-D\n" \
-               "M=D\n"
+               "M=D"
 
     def write_neg(self):
-        return "//neq\n" \
+        return "\n//neq\n" \
                "@SP\n" \
                "A=M-1\n" \
-               "M=-M\n"
+               "M=-M"
 
     def write_eq(self):
-        return "//eq\n" \
+        return "\n//eq\n" \
                 + self.write_sub() \
                + "\n" + \
                   "@EQUAL\n" \
@@ -240,10 +240,10 @@ class CodeWriter:
                   "(EQUAL)\n" \
                   "A=A-1\n" \
                   "M=-1\n" \
-                  "(EQEND)\n"
+                  "(EQEND)"
 
     def write_gt(self):
-        return "//gt\n" \
+        return "\n//gt\n" \
                + self.write_sub() \
             + "\n" + \
                "@GREATER\n" \
@@ -255,10 +255,10 @@ class CodeWriter:
                "(GREATER)\n" \
                "A=A-1\n" \
                "M=-1\n" \
-               "(GREATEREND)\n"
+               "(GREATEREND)"
 
     def write_lt(self):
-        return "//lt\n" \
+        return "\n//lt\n" \
                + self.write_sub() \
             + "\n" + \
                "@LESSTHAN\n" \
@@ -270,10 +270,10 @@ class CodeWriter:
                "(LESSTHAN)\n" \
                "A=A-1\n" \
                "M=-1\n" \
-               "(LESSTEND)\n"
+               "(LESSTEND)"
 
     def write_and(self):
-        return "//and\n" \
+        return "\n//and\n" \
                + self.write_add() \
                + "\n" + \
                 "D=D+1\n" \
@@ -287,12 +287,12 @@ class CodeWriter:
                "(ANDSUCCESS)\n" \
                "A=A-1\n" \
                "M=-1\n" \
-               "(ANDEND)\n"
+               "(ANDEND)"
 
 
 
     def write_or(self):
-        return "//or\n" +\
+        return "\n//or\n" +\
                self.write_add() + \
                 "@0\n" \
                 "D=A\n" \
@@ -304,10 +304,10 @@ class CodeWriter:
                 self.write_lt()
 
     def write_not(self):
-        return "//not\n" \
+        return "\n//not\n" \
                "@SP\n" \
                "A=M-1\n" \
-               "M=!M\n" \
+               "M=!M" \
 
 
 
@@ -324,7 +324,7 @@ class CodeWriter:
                   "A=M\n" \
                   "M=D\n" \
                   "@SP\n" \
-                  "M=M+1\n"
+                  "M=M+1"
         return output
 
     def pop_command(self, segment, index):
@@ -347,5 +347,5 @@ class CodeWriter:
                   "M=D\n" \
                   "@TAR\n" \
                   "A=M\n" \
-                  "A=D\n"
+                  "A=D"
         return output
