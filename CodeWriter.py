@@ -352,7 +352,7 @@ class CodeWriter:
     def pop_command(self, segment, index):
         output = "@SP\n" \
                  "M=M-1\n" \
-                 "@" + str(index) + "D=A\n@"
+                 "@" + str(index) + "\nD=A\n@"
         if segment == "constant":
             return output + str(index)
         if segment in ["static", "heap"]:
