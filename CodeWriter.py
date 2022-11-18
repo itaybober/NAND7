@@ -250,19 +250,24 @@ class CodeWriter:
 
 
     def write_gt(self):
+        self.jump_var += 1
         return "//gt\n" \
                + self.write_sub() \
             + "\n" + \
-               "@GREATER\n" \
-               "D;JLT\n" \
+               "@GREATER" + str(self.jump_var) + "\n" \
+               "D;JGT\n" \
+               "@SP\n" \
+               "A=M\n" \
                "A=A-1\n" \
                "M=0\n" \
-               "@GREATEREND\n" \
+               "@GREATEREND" + str(self.jump_var) + "\n" \
                "0;JMP\n" \
-               "(GREATER)\n" \
+               "(GREATER" + str(self.jump_var) + ")\n" \
+               "@SP\n" \
+               "A=M\n" \
                "A=A-1\n" \
                "M=-1\n" \
-               "(GREATEREND)\n"
+               "(GREATEREND" + str(self.jump_var) + ")\n"
 
     def write_lt(self):
         self.jump_var += 1
@@ -285,21 +290,26 @@ class CodeWriter:
                "(LESSTEND" + str(self.jump_var) + ")\n"
 
     def write_and(self):
+        self.jump_var += 1
         return "//and\n" \
                + self.write_add() \
                + "\n" + \
                 "D=D+1\n" \
                 "D=D+1\n" \
-               "@ANDSUCCESS\n" \
+               "@ANDSUCCESS" + str(self.jump_var) + "\n" \
                "D;JEQ\n" \
+                  "@SP\n" \
+                  "A=M\n" \
                "A=A-1\n" \
                "M=0\n" \
-               "@ANDEND\n" \
+               "@ANDEND" + str(self.jump_var) + "\n" \
                "0;JMP\n" \
-               "(ANDSUCCESS)\n" \
+               "(ANDSUCCESS" + str(self.jump_var) + ")\n" \
+                  "@SP\n" \
+                  "A=M\n" \
                "A=A-1\n" \
                "M=-1\n" \
-               "(ANDEND)\n"
+               "(ANDEND" + str(self.jump_var) + ")\n"
 
 
 
