@@ -91,7 +91,7 @@ class CodeWriter:
         # be translated to the assembly symbol "Xxx.i". In the subsequent
         # assembly process, the Hack assembler will allocate these symbolic
         # variables to the RAM, starting at address 16.
-        output = "\n// " + command + " " + segment + " " + str(index) + "\n"
+        output = "// " + command + " " + segment + " " + str(index) + "\n"
         if command == "C_PUSH":
             output += self.push_command(segment, index)
         else:
@@ -201,34 +201,34 @@ class CodeWriter:
         pass
 
     def write_add(self):
-        return "\n// add\n" \
+        return "// add\n" \
                "@SP\n" \
                "M=M-1\n" \
                "A=M\n" \
                "D=M\n" \
                "A=A-1\n" \
                "D=D+M\n" \
-               "M=D"
+               "M=D\n"
     # THIS IS A TEST
 
     def write_sub(self):
-        return "\n// sub\n" \
+        return "// sub\n" \
                "@SP\n" \
                "M=M-1\n" \
                "A=M\n" \
                "D=M\n" \
                "A=A-1\n" \
                "D=M-D\n" \
-               "M=D"
+               "M=D\n"
 
     def write_neg(self):
-        return "\n//neq\n" \
+        return "//neq\n" \
                "@SP\n" \
                "A=M-1\n" \
-               "M=-M"
+               "M=-M\n"
 
     def write_eq(self):
-        return "\n//eq\n" \
+        return "//eq\n" \
                 + self.write_sub() \
                + "\n" + \
                   "@EQUAL\n" \
@@ -240,10 +240,10 @@ class CodeWriter:
                   "(EQUAL)\n" \
                   "A=A-1\n" \
                   "M=-1\n" \
-                  "(EQEND)"
+                  "(EQEND)\n"
 
     def write_gt(self):
-        return "\n//gt\n" \
+        return "//gt\n" \
                + self.write_sub() \
             + "\n" + \
                "@GREATER\n" \
@@ -255,10 +255,10 @@ class CodeWriter:
                "(GREATER)\n" \
                "A=A-1\n" \
                "M=-1\n" \
-               "(GREATEREND)"
+               "(GREATEREND)\n"
 
     def write_lt(self):
-        return "\n//lt\n" \
+        return "//lt\n" \
                + self.write_sub() \
             + "\n" + \
                "@LESSTHAN\n" \
@@ -270,10 +270,10 @@ class CodeWriter:
                "(LESSTHAN)\n" \
                "A=A-1\n" \
                "M=-1\n" \
-               "(LESSTEND)"
+               "(LESSTEND)\n"
 
     def write_and(self):
-        return "\n//and\n" \
+        return "//and\n" \
                + self.write_add() \
                + "\n" + \
                 "D=D+1\n" \
@@ -287,12 +287,12 @@ class CodeWriter:
                "(ANDSUCCESS)\n" \
                "A=A-1\n" \
                "M=-1\n" \
-               "(ANDEND)"
+               "(ANDEND)\n"
 
 
 
     def write_or(self):
-        return "\n//or\n" +\
+        return "//or\n" +\
                self.write_add() + \
                 "@0\n" \
                 "D=A\n" \
@@ -304,27 +304,27 @@ class CodeWriter:
                 self.write_lt()
 
     def write_not(self):
-        return "\n//not\n" \
+        return "//not\n" \
                "@SP\n" \
                "A=M-1\n" \
-               "M=!M" \
+               "M=!M\n" \
 
 
 
     def push_command(self, segment, index):
         output = "@" + str(index) + "\nD=A\n"
         if segment in ["static", "heap"]:
-            output += self.dict[segment]
+            output += self.dict[segment] +\
+                      "A=D+A\n" +\
+                      "D=M\n"
         elif segment in self.dict:
-            output += "@" + self.dict[segment] + "\nA=M\n"
-
-        output += "A=A+D\n" \
-                  "D=M\n" \
-                  "@SP\n" \
-                  "A=M\n" \
-                  "M=D\n" \
-                  "@SP\n" \
-                  "M=M+1"
+            output += "@" + self.dict[segment] + "\nA=M\n"+ "A=D+A\n" \
+                  "D=M\n"
+        output += "@SP\n" \
+        "A=M\n" \
+        "M=D\n" \
+        "@SP\n" \
+        "M=M+1\n"
         return output
 
     def pop_command(self, segment, index):
@@ -347,5 +347,5 @@ class CodeWriter:
                   "M=D\n" \
                   "@TAR\n" \
                   "A=M\n" \
-                  "A=D"
+                  "A=D\n"
         return output
