@@ -23,6 +23,7 @@ class CodeWriter:
         self.output_file = output_stream
         self.dict = {"static": "16", "local" : "LCL", "argument": "ARG", "this": "THIS", "that" : "THAT",
                      "temp": "TEMP", "pointer" : "SP", "heap": "2048"}
+        self.jump_var = 0
 
     def set_file_name(self, filename: str) -> None:
         """Informs the code writer that the translation of a new VM file is 
@@ -228,19 +229,25 @@ class CodeWriter:
                "M=-M\n"
 
     def write_eq(self):
+        self.jump_var += 1
         return "//eq\n" \
                 + self.write_sub() \
                + "\n" + \
-                  "@EQUAL\n" \
+                  "@EQUAL"+ str(self.jump_var) + "\n" \
                   "D;JEQ\n" \
+                  "@SP\n" \
+                  "A=M\n" \
                   "A=A-1\n" \
                   "M=0\n" \
-                  "@EQEND\n" \
+                  "@EQEND" + str(self.jump_var) + "\n" \
                   "0;JMP\n" \
-                  "(EQUAL)\n" \
+                  "(EQUAL"+ str(self.jump_var) + ")\n" \
+                  "@SP\n" \
+                  "A=M\n" \
                   "A=A-1\n" \
                   "M=-1\n" \
-                  "(EQEND)\n"
+                  "(EQEND"+ str(self.jump_var) + ")\n"
+
 
     def write_gt(self):
         return "//gt\n" \
@@ -258,19 +265,24 @@ class CodeWriter:
                "(GREATEREND)\n"
 
     def write_lt(self):
+        self.jump_var += 1
         return "//lt\n" \
                + self.write_sub() \
             + "\n" + \
-               "@LESSTHAN\n" \
-               "D;JGT\n" \
+               "@LESSTHAN" + str(self.jump_var) + "\n" \
+               "D;JLT\n" \
+               "@SP\n" \
+               "A=M\n" \
                "A=A-1\n" \
                "M=0\n" \
-               "@LESSTEND\n" \
+               "@LESSTEND" + str(self.jump_var) + "\n" \
                "0;JMP\n" \
-               "(LESSTHAN)\n" \
+               "(LESSTHAN" + str(self.jump_var) + ")\n" \
+               "@SP\n" \
+               "A=M\n" \
                "A=A-1\n" \
                "M=-1\n" \
-               "(LESSTEND)\n"
+               "(LESSTEND" + str(self.jump_var) + ")\n"
 
     def write_and(self):
         return "//and\n" \

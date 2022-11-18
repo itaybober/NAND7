@@ -42,9 +42,9 @@ def translate_file(
 
 if "__main__" == __name__:
 
-    # with open("output.asm", 'w') as output_file:
-    #     with open("StackArithmetic/StackTest/StackTest.vm", 'r') as input_file:
-    #             translate_file(input_file, output_file)
+    with open("StackArithmetic/StackTest/StackTest.asm", 'w') as output_file:
+        with open("StackArithmetic/StackTest/StackTest.vm", 'r') as input_file:
+                translate_file(input_file, output_file)
 
     # Parses the input path and calls translate_file on each input file.
     # This opens both the input and the output files!
@@ -53,24 +53,24 @@ if "__main__" == __name__:
     # correct path, using the correct filename.
 
 
-    if not len(sys.argv) == 2:
-        sys.exit("Invalid usage, please use: VMtranslator <input path>")
-    argument_path = os.path.abspath(sys.argv[1])
-    if os.path.isdir(argument_path):
-        files_to_translate = [
-            os.path.join(argument_path, filename)
-            for filename in os.listdir(argument_path)]
-        output_path = os.path.join(argument_path, os.path.basename(
-            argument_path))
-    else:
-        files_to_translate = [argument_path]
-        output_path, extension = os.path.splitext(argument_path)
-    output_path += ".asm"
-
-    with open(output_path, 'w') as output_file:
-        for input_path in files_to_translate:
-            filename, extension = os.path.splitext(input_path)
-            if extension.lower() != ".vm":
-                continue
-            with open(input_path, 'r') as input_file:
-                translate_file(input_file, output_file)
+    # if not len(sys.argv) == 2:
+    #     sys.exit("Invalid usage, please use: VMtranslator <input path>")
+    # argument_path = os.path.abspath(sys.argv[1])
+    # if os.path.isdir(argument_path):
+    #     files_to_translate = [
+    #         os.path.join(argument_path, filename)
+    #         for filename in os.listdir(argument_path)]
+    #     output_path = os.path.join(argument_path, os.path.basename(
+    #         argument_path))
+    # else:
+    #     files_to_translate = [argument_path]
+    #     output_path, extension = os.path.splitext(argument_path)
+    # output_path += ".asm"
+    #
+    # with open(output_path, 'w') as output_file:
+    #     for input_path in files_to_translate:
+    #         filename, extension = os.path.splitext(input_path)
+    #         if extension.lower() != ".vm":
+    #             continue
+    #         with open(input_path, 'r') as input_file:
+    #             translate_file(input_file, output_file)

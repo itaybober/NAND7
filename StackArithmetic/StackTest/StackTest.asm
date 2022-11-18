@@ -1,8 +1,6 @@
 // C_PUSH constant 17
 @17
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -11,8 +9,6 @@ M=M+1
 // C_PUSH constant 17
 @17
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -28,21 +24,23 @@ A=A-1
 D=M-D
 M=D
 
-@EQUAL
+@EQUAL1
 D;JEQ
+@SP
+A=M
 A=A-1
 M=0
-@EQEND
+@EQEND1
 0;JMP
-(EQUAL)
+(EQUAL1)
+@SP
+A=M
 A=A-1
 M=-1
-(EQEND)
+(EQEND1)
 // C_PUSH constant 17
 @17
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -51,8 +49,6 @@ M=M+1
 // C_PUSH constant 16
 @16
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -68,21 +64,23 @@ A=A-1
 D=M-D
 M=D
 
-@EQUAL
+@EQUAL2
 D;JEQ
+@SP
+A=M
 A=A-1
 M=0
-@EQEND
+@EQEND2
 0;JMP
-(EQUAL)
+(EQUAL2)
+@SP
+A=M
 A=A-1
 M=-1
-(EQEND)
+(EQEND2)
 // C_PUSH constant 16
 @16
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -91,8 +89,6 @@ M=M+1
 // C_PUSH constant 17
 @17
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -108,21 +104,23 @@ A=A-1
 D=M-D
 M=D
 
-@EQUAL
+@EQUAL3
 D;JEQ
+@SP
+A=M
 A=A-1
 M=0
-@EQEND
+@EQEND3
 0;JMP
-(EQUAL)
+(EQUAL3)
+@SP
+A=M
 A=A-1
 M=-1
-(EQEND)
+(EQEND3)
 // C_PUSH constant 892
 @892
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -131,8 +129,6 @@ M=M+1
 // C_PUSH constant 891
 @891
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -148,21 +144,23 @@ A=A-1
 D=M-D
 M=D
 
-@LESSTHAN
-D;JGT
+@LESSTHAN4
+D;JLT
+@SP
+A=M
 A=A-1
 M=0
-@LESSTEND
+@LESSTEND4
 0;JMP
-(LESSTHAN)
+(LESSTHAN4)
+@SP
+A=M
 A=A-1
 M=-1
-(LESSTEND)
+(LESSTEND4)
 // C_PUSH constant 891
 @891
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -171,8 +169,6 @@ M=M+1
 // C_PUSH constant 892
 @892
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -188,21 +184,23 @@ A=A-1
 D=M-D
 M=D
 
-@LESSTHAN
-D;JGT
+@LESSTHAN5
+D;JLT
+@SP
+A=M
 A=A-1
 M=0
-@LESSTEND
+@LESSTEND5
 0;JMP
-(LESSTHAN)
+(LESSTHAN5)
+@SP
+A=M
 A=A-1
 M=-1
-(LESSTEND)
+(LESSTEND5)
 // C_PUSH constant 891
 @891
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -211,8 +209,6 @@ M=M+1
 // C_PUSH constant 891
 @891
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -228,21 +224,23 @@ A=A-1
 D=M-D
 M=D
 
-@LESSTHAN
-D;JGT
+@LESSTHAN6
+D;JLT
+@SP
+A=M
 A=A-1
 M=0
-@LESSTEND
+@LESSTEND6
 0;JMP
-(LESSTHAN)
+(LESSTHAN6)
+@SP
+A=M
 A=A-1
 M=-1
-(LESSTEND)
+(LESSTEND6)
 // C_PUSH constant 32767
 @32767
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -251,8 +249,6 @@ M=M+1
 // C_PUSH constant 32766
 @32766
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -281,8 +277,6 @@ M=-1
 // C_PUSH constant 32766
 @32766
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -291,8 +285,6 @@ M=M+1
 // C_PUSH constant 32767
 @32767
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -321,8 +313,6 @@ M=-1
 // C_PUSH constant 32766
 @32766
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -331,8 +321,6 @@ M=M+1
 // C_PUSH constant 32766
 @32766
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -361,8 +349,6 @@ M=-1
 // C_PUSH constant 57
 @57
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -371,8 +357,6 @@ M=M+1
 // C_PUSH constant 31
 @31
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -381,8 +365,6 @@ M=M+1
 // C_PUSH constant 53
 @53
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -399,8 +381,6 @@ M=D
 // C_PUSH constant 112
 @112
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -443,8 +423,6 @@ M=-1
 // C_PUSH constant 82
 @82
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -476,16 +454,20 @@ A=A-1
 D=M-D
 M=D
 
-@LESSTHAN
-D;JGT
+@LESSTHAN7
+D;JLT
+@SP
+A=M
 A=A-1
 M=0
-@LESSTEND
+@LESSTEND7
 0;JMP
-(LESSTHAN)
+(LESSTHAN7)
+@SP
+A=M
 A=A-1
 M=-1
-(LESSTEND)
+(LESSTEND7)
 //not
 @SP
 A=M-1
