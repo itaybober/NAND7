@@ -43,8 +43,8 @@ def translate_file(
 
 if "__main__" == __name__:
 
-    # with open("StackArithmetic/StackTest/StackTest.asm", 'w') as output_file:
-    #     with open("StackArithmetic/StackTest/StackTest.vm", 'r') as input_file:
+    # with open("MemoryAccess/BasicTest/BasicTest.asm", 'w') as output_file:
+    #     with open("MemoryAccess/BasicTest/BasicTest.vm", 'r') as input_file:
     #             translate_file(input_file, output_file)
 
     # Parses the input path and calls translate_file on each input file.
