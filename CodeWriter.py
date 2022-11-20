@@ -5,6 +5,7 @@ was written by Aviv Yaish. It is an extension to the specifications given
 as allowed by the Creative Common Attribution-NonCommercial-ShareAlike 3.0
 Unported [License](https://creativecommons.org/licenses/by-nc-sa/3.0/).
 """
+import os
 import typing
 
 
@@ -20,6 +21,7 @@ class CodeWriter:
         # Your code goes here!
         # Note that you can write to output_stream like so:
         # output_stream.write("Hello world! \n")
+        self.filename = ""
         self.output_file = output_stream
         self.dict = {"static": "16", "local" : "LCL", "argument": "ARG", "this": "THIS", "that" : "THAT",
                      "temp": "TEMP", "pointer" : "SP", "heap": "2048"}
@@ -42,8 +44,9 @@ class CodeWriter:
         # to filenames and paths, you are advised to parse the filename in
         # the function "translate_file" in Main.py using python's os library,
         # For example, using code similar to:
-        # input_filename, input_extension = os.path.splitext(os.path.basename(input_file.name))
-        pass
+        input_filename, input_extension = os.path.splitext(os.path.basename(filename))
+        self.filename = input_filename
+
 
     def write_arithmetic(self, command: str) -> None:
         """Writes assembly code that is the translation of the given 
@@ -292,24 +295,12 @@ class CodeWriter:
     def write_and(self):
         self.jump_var += 1
         return "//and\n" \
-               + self.write_add() \
-               + "\n" + \
-                "D=D+1\n" \
-                "D=D+1\n" \
-               "@ANDSUCCESS" + str(self.jump_var) + "\n" \
-               "D;JEQ\n" \
-                  "@SP\n" \
-                  "A=M\n" \
+               "@SP\n" \
+               "M=M-1" \
+               "A=M\n" \
+               "D=M\n" \
                "A=A-1\n" \
-               "M=0\n" \
-               "@ANDEND" + str(self.jump_var) + "\n" \
-               "0;JMP\n" \
-               "(ANDSUCCESS" + str(self.jump_var) + ")\n" \
-                  "@SP\n" \
-                  "A=M\n" \
-               "A=A-1\n" \
-               "M=-1\n" \
-               "(ANDEND" + str(self.jump_var) + ")\n"
+               "D=D&M"
 
 
 

@@ -1,8 +1,6 @@
 // C_PUSH constant 111
 @111
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -11,8 +9,6 @@ M=M+1
 // C_PUSH constant 333
 @333
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -21,8 +17,6 @@ M=M+1
 // C_PUSH constant 888
 @888
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -31,7 +25,8 @@ M=M+1
 // C_POP static 8
 @SP
 M=M-1
-@8D=A
+@8
+D=A
 @16A=A+D
 D=A
 @TAR
@@ -44,7 +39,8 @@ A=D
 // C_POP static 3
 @SP
 M=M-1
-@3D=A
+@3
+D=A
 @16A=A+D
 D=A
 @TAR
@@ -57,7 +53,8 @@ A=D
 // C_POP static 1
 @SP
 M=M-1
-@1D=A
+@1
+D=A
 @16A=A+D
 D=A
 @TAR
@@ -70,7 +67,7 @@ A=D
 // C_PUSH static 3
 @3
 D=A
-16A=A+D
+16A=D+A
 D=M
 @SP
 A=M
@@ -80,7 +77,7 @@ M=M+1
 // C_PUSH static 1
 @1
 D=A
-16A=A+D
+16A=D+A
 D=M
 @SP
 A=M
@@ -98,7 +95,7 @@ M=D
 // C_PUSH static 8
 @8
 D=A
-16A=A+D
+16A=D+A
 D=M
 @SP
 A=M

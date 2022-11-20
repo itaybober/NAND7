@@ -1,8 +1,6 @@
 // C_PUSH constant 10
 @10
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -11,7 +9,8 @@ M=M+1
 // C_POP local 0
 @SP
 M=M-1
-@0D=A
+@0
+D=A
 @LCL
 A=M
 A=A+D
@@ -26,8 +25,6 @@ A=D
 // C_PUSH constant 21
 @21
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -36,8 +33,6 @@ M=M+1
 // C_PUSH constant 22
 @22
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -46,7 +41,8 @@ M=M+1
 // C_POP argument 2
 @SP
 M=M-1
-@2D=A
+@2
+D=A
 @ARG
 A=M
 A=A+D
@@ -61,7 +57,8 @@ A=D
 // C_POP argument 1
 @SP
 M=M-1
-@1D=A
+@1
+D=A
 @ARG
 A=M
 A=A+D
@@ -76,8 +73,6 @@ A=D
 // C_PUSH constant 36
 @36
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -86,7 +81,8 @@ M=M+1
 // C_POP this 6
 @SP
 M=M-1
-@6D=A
+@6
+D=A
 @THIS
 A=M
 A=A+D
@@ -101,8 +97,6 @@ A=D
 // C_PUSH constant 42
 @42
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -111,8 +105,6 @@ M=M+1
 // C_PUSH constant 45
 @45
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -121,7 +113,8 @@ M=M+1
 // C_POP that 5
 @SP
 M=M-1
-@5D=A
+@5
+D=A
 @THAT
 A=M
 A=A+D
@@ -136,7 +129,8 @@ A=D
 // C_POP that 2
 @SP
 M=M-1
-@2D=A
+@2
+D=A
 @THAT
 A=M
 A=A+D
@@ -151,8 +145,6 @@ A=D
 // C_PUSH constant 510
 @510
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -161,7 +153,8 @@ M=M+1
 // C_POP temp 6
 @SP
 M=M-1
-@6D=A
+@6
+D=A
 @TEMP
 A=M
 A=A+D
@@ -178,7 +171,7 @@ A=D
 D=A
 @LCL
 A=M
-A=A+D
+A=D+A
 D=M
 @SP
 A=M
@@ -190,7 +183,7 @@ M=M+1
 D=A
 @THAT
 A=M
-A=A+D
+A=D+A
 D=M
 @SP
 A=M
@@ -210,7 +203,7 @@ M=D
 D=A
 @ARG
 A=M
-A=A+D
+A=D+A
 D=M
 @SP
 A=M
@@ -230,7 +223,7 @@ M=D
 D=A
 @THIS
 A=M
-A=A+D
+A=D+A
 D=M
 @SP
 A=M
@@ -242,7 +235,7 @@ M=M+1
 D=A
 @THIS
 A=M
-A=A+D
+A=D+A
 D=M
 @SP
 A=M
@@ -270,7 +263,7 @@ M=D
 D=A
 @TEMP
 A=M
-A=A+D
+A=D+A
 D=M
 @SP
 A=M

@@ -37,7 +37,8 @@ def translate_file(
             command = parser.arg1()
             code_writer.write_arithmetic(command)
         parser.advance()
-    # parser.print()
+    output_file.close()
+
 
 
 if "__main__" == __name__:

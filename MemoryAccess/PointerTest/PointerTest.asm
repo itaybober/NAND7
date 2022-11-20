@@ -1,8 +1,6 @@
 // C_PUSH constant 3030
 @3030
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -11,7 +9,8 @@ M=M+1
 // C_POP pointer 0
 @SP
 M=M-1
-@0D=A
+@0
+D=A
 @SP
 A=M
 A=A+D
@@ -26,8 +25,6 @@ A=D
 // C_PUSH constant 3040
 @3040
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -36,7 +33,8 @@ M=M+1
 // C_POP pointer 1
 @SP
 M=M-1
-@1D=A
+@1
+D=A
 @SP
 A=M
 A=A+D
@@ -51,8 +49,6 @@ A=D
 // C_PUSH constant 32
 @32
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -61,7 +57,8 @@ M=M+1
 // C_POP this 2
 @SP
 M=M-1
-@2D=A
+@2
+D=A
 @THIS
 A=M
 A=A+D
@@ -76,8 +73,6 @@ A=D
 // C_PUSH constant 46
 @46
 D=A
-A=A+D
-D=M
 @SP
 A=M
 M=D
@@ -86,7 +81,8 @@ M=M+1
 // C_POP that 6
 @SP
 M=M-1
-@6D=A
+@6
+D=A
 @THAT
 A=M
 A=A+D
@@ -103,7 +99,7 @@ A=D
 D=A
 @SP
 A=M
-A=A+D
+A=D+A
 D=M
 @SP
 A=M
@@ -115,7 +111,7 @@ M=M+1
 D=A
 @SP
 A=M
-A=A+D
+A=D+A
 D=M
 @SP
 A=M
@@ -135,7 +131,7 @@ M=D
 D=A
 @THIS
 A=M
-A=A+D
+A=D+A
 D=M
 @SP
 A=M
@@ -155,7 +151,7 @@ M=D
 D=A
 @THAT
 A=M
-A=A+D
+A=D+A
 D=M
 @SP
 A=M
