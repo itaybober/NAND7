@@ -7,8 +7,8 @@ M=D
 @SP
 M=M+1
 // C_POP pointer 0
-@SP
-D=M
+@3
+D=A
 @TAR1
 M=D
 @0
@@ -31,8 +31,8 @@ M=D
 @SP
 M=M+1
 // C_POP pointer 1
-@SP
-D=M
+@3
+D=A
 @TAR2
 M=D
 @1
@@ -97,8 +97,7 @@ M=D
 // C_PUSH pointer 0
 @0
 D=A
-@SP
-A=M
+@3
 A=D+A
 D=M
 @SP
@@ -109,8 +108,7 @@ M=M+1
 // C_PUSH pointer 1
 @1
 D=A
-@SP
-A=M
+@3
 A=D+A
 D=M
 @SP

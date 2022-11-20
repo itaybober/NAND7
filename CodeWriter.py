@@ -24,7 +24,7 @@ class CodeWriter:
         self.filename = ""
         self.output_file = output_stream
         self.dict = {"static": "16", "local" : "LCL", "argument": "ARG", "this": "THIS", "that" : "THAT",
-                     "temp": "5", "pointer" : "SP", "heap": "2048"}
+                     "temp": "5", "pointer" : "3", "heap": "2048"}
         self.jump_var = 0
 
     def set_file_name(self, filename: str) -> None:
@@ -323,7 +323,7 @@ class CodeWriter:
 
     def push_command(self, segment, index):
         output = "@" + str(index) + "\nD=A\n"
-        if segment in ["static", "heap","temp"]:
+        if segment in ["static", "pointer","temp"]:
             output += "@" + self.dict[segment] +\
                       "\nA=D+A\n" +\
                       "D=M\n"
@@ -343,7 +343,7 @@ class CodeWriter:
             return "@SP\n" \
                    "M=M-1\n"
         output = "@" + self.dict[segment]
-        if segment in ["temp","static"]:
+        if segment in ["temp","static","pointer"]:
             output += "\nD=A\n"
         else:
             output +=  "\nD=M\n"
