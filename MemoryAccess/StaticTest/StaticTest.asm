@@ -23,51 +23,58 @@ M=D
 @SP
 M=M+1
 // C_POP static 8
-@SP
-M=M-1
+@16
+D=A
+@TAR1
+M=D
 @8
 D=A
-@16A=A+D
-D=A
-@TAR
-M=D
-@SP
-M=D
-@TAR
-A=M
-A=D
-// C_POP static 3
+@TAR1
+M=D+M
 @SP
 M=M-1
+A=M
+D=M
+@TAR1
+A=M
+M=D
+// C_POP static 3
+@16
+D=A
+@TAR2
+M=D
 @3
 D=A
-@16A=A+D
-D=A
-@TAR
-M=D
-@SP
-M=D
-@TAR
-A=M
-A=D
-// C_POP static 1
+@TAR2
+M=D+M
 @SP
 M=M-1
+A=M
+D=M
+@TAR2
+A=M
+M=D
+// C_POP static 1
+@16
+D=A
+@TAR3
+M=D
 @1
 D=A
-@16A=A+D
-D=A
-@TAR
-M=D
+@TAR3
+M=D+M
 @SP
-M=D
-@TAR
+M=M-1
 A=M
-A=D
+D=M
+@TAR3
+A=M
+M=D
 // C_PUSH static 3
 @3
 D=A
-16A=D+A
+@16
+A=D+A
 D=M
 @SP
 A=M
@@ -77,7 +84,8 @@ M=M+1
 // C_PUSH static 1
 @1
 D=A
-16A=D+A
+@16
+A=D+A
 D=M
 @SP
 A=M
@@ -95,7 +103,8 @@ M=D
 // C_PUSH static 8
 @8
 D=A
-16A=D+A
+@16
+A=D+A
 D=M
 @SP
 A=M

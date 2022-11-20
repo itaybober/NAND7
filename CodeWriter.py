@@ -24,7 +24,7 @@ class CodeWriter:
         self.filename = ""
         self.output_file = output_stream
         self.dict = {"static": "16", "local" : "LCL", "argument": "ARG", "this": "THIS", "that" : "THAT",
-                     "temp": "TEMP", "pointer" : "SP", "heap": "2048"}
+                     "temp": "5", "pointer" : "SP", "heap": "2048"}
         self.jump_var = 0
 
     def set_file_name(self, filename: str) -> None:
@@ -296,11 +296,11 @@ class CodeWriter:
         self.jump_var += 1
         return "//and\n" \
                "@SP\n" \
-               "M=M-1" \
+               "M=M-1\n" \
                "A=M\n" \
                "D=M\n" \
                "A=A-1\n" \
-               "D=D&M"
+               "M=D&M\n"
 
 
 
@@ -323,9 +323,9 @@ class CodeWriter:
 
     def push_command(self, segment, index):
         output = "@" + str(index) + "\nD=A\n"
-        if segment in ["static", "heap"]:
-            output += self.dict[segment] +\
-                      "A=D+A\n" +\
+        if segment in ["static", "heap","temp"]:
+            output += "@" + self.dict[segment] +\
+                      "\nA=D+A\n" +\
                       "D=M\n"
         elif segment in self.dict:
             output += "@" + self.dict[segment] + "\nA=M\n"+ "A=D+A\n" \
@@ -338,24 +338,27 @@ class CodeWriter:
         return output
 
     def pop_command(self, segment, index):
-        output = "@SP\n" \
-                 "M=M-1\n" \
-                 "@" + str(index) + "\nD=A\n@"
+        self.jump_var += 1
         if segment == "constant":
-            return output + str(index)
-        if segment in ["static", "heap"]:
-            output += self.dict[segment]
+            return "@SP\n" \
+                   "M=M-1\n"
+        output = "@" + self.dict[segment]
+        if segment in ["temp","static"]:
+            output += "\nD=A\n"
         else:
-            output += self.dict[segment] + \
-                      "\nA=M\n"
-
-        output += "A=A+D\n" \
-                  "D=A\n" \
-                  "@TAR\n" \
-                  "M=D\n" \
-                  "@SP\n" \
-                  "M=D\n" \
-                  "@TAR\n" \
-                  "A=M\n" \
-                  "A=D\n"
+            output +=  "\nD=M\n"
+        output +=   "@TAR" + str(self.jump_var) + "\n" \
+                    "M=D\n" \
+                    "@"+str(index)+\
+                    "\nD=A\n" \
+                    "@TAR" + str(self.jump_var) + "\n" \
+                    "M=D+M\n" \
+                    "@SP\n" \
+                    "M=M-1\n" \
+                    "A=M\n" \
+                    "D=M\n" \
+                    "@TAR" + str(self.jump_var) + "\n" \
+                    "A=M\n" \
+                    "M=D\n"
         return output
+

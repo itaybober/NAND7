@@ -264,16 +264,20 @@ A=A-1
 D=M-D
 M=D
 
-@GREATER
-D;JLT
+@GREATER7
+D;JGT
+@SP
+A=M
 A=A-1
 M=0
-@GREATEREND
+@GREATEREND7
 0;JMP
-(GREATER)
+(GREATER7)
+@SP
+A=M
 A=A-1
 M=-1
-(GREATEREND)
+(GREATEREND7)
 // C_PUSH constant 32766
 @32766
 D=A
@@ -300,16 +304,20 @@ A=A-1
 D=M-D
 M=D
 
-@GREATER
-D;JLT
+@GREATER8
+D;JGT
+@SP
+A=M
 A=A-1
 M=0
-@GREATEREND
+@GREATEREND8
 0;JMP
-(GREATER)
+(GREATER8)
+@SP
+A=M
 A=A-1
 M=-1
-(GREATEREND)
+(GREATEREND8)
 // C_PUSH constant 32766
 @32766
 D=A
@@ -336,16 +344,20 @@ A=A-1
 D=M-D
 M=D
 
-@GREATER
-D;JLT
+@GREATER9
+D;JGT
+@SP
+A=M
 A=A-1
 M=0
-@GREATEREND
+@GREATEREND9
 0;JMP
-(GREATER)
+(GREATER9)
+@SP
+A=M
 A=A-1
 M=-1
-(GREATEREND)
+(GREATEREND9)
 // C_PUSH constant 57
 @57
 D=A
@@ -399,27 +411,12 @@ M=D
 A=M-1
 M=-M
 //and
-// add
 @SP
 M=M-1
 A=M
 D=M
 A=A-1
-D=D+M
-M=D
-
-D=D+1
-D=D+1
-@ANDSUCCESS
-D;JEQ
-A=A-1
-M=0
-@ANDEND
-0;JMP
-(ANDSUCCESS)
-A=A-1
-M=-1
-(ANDEND)
+M=D&M
 // C_PUSH constant 82
 @82
 D=A
@@ -429,45 +426,12 @@ M=D
 @SP
 M=M+1
 //or
-// add
 @SP
 M=M-1
 A=M
 D=M
 A=A-1
-D=D+M
-M=D
-@0
-D=A
-@SP
-A=M
-M=D
-@SP
-M=M+1
-//lt
-// sub
-@SP
-M=M-1
-A=M
-D=M
-A=A-1
-D=M-D
-M=D
-
-@LESSTHAN7
-D;JLT
-@SP
-A=M
-A=A-1
-M=0
-@LESSTEND7
-0;JMP
-(LESSTHAN7)
-@SP
-A=M
-A=A-1
-M=-1
-(LESSTEND7)
+M=M|D
 //not
 @SP
 A=M-1

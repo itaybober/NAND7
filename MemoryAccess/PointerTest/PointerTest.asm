@@ -8,20 +8,20 @@ M=D
 M=M+1
 // C_POP pointer 0
 @SP
-M=M-1
+D=M
+@TAR1
+M=D
 @0
 D=A
+@TAR1
+M=D+M
 @SP
+M=M-1
 A=M
-A=A+D
-D=A
-@TAR
-M=D
-@SP
-M=D
-@TAR
+D=M
+@TAR1
 A=M
-A=D
+M=D
 // C_PUSH constant 3040
 @3040
 D=A
@@ -32,20 +32,20 @@ M=D
 M=M+1
 // C_POP pointer 1
 @SP
-M=M-1
+D=M
+@TAR2
+M=D
 @1
 D=A
+@TAR2
+M=D+M
 @SP
+M=M-1
 A=M
-A=A+D
-D=A
-@TAR
-M=D
-@SP
-M=D
-@TAR
+D=M
+@TAR2
 A=M
-A=D
+M=D
 // C_PUSH constant 32
 @32
 D=A
@@ -55,21 +55,21 @@ M=D
 @SP
 M=M+1
 // C_POP this 2
-@SP
-M=M-1
+@THIS
+D=M
+@TAR3
+M=D
 @2
 D=A
-@THIS
-A=M
-A=A+D
-D=A
-@TAR
-M=D
+@TAR3
+M=D+M
 @SP
-M=D
-@TAR
+M=M-1
 A=M
-A=D
+D=M
+@TAR3
+A=M
+M=D
 // C_PUSH constant 46
 @46
 D=A
@@ -79,21 +79,21 @@ M=D
 @SP
 M=M+1
 // C_POP that 6
-@SP
-M=M-1
+@THAT
+D=M
+@TAR4
+M=D
 @6
 D=A
-@THAT
-A=M
-A=A+D
-D=A
-@TAR
-M=D
+@TAR4
+M=D+M
 @SP
-M=D
-@TAR
+M=M-1
 A=M
-A=D
+D=M
+@TAR4
+A=M
+M=D
 // C_PUSH pointer 0
 @0
 D=A
